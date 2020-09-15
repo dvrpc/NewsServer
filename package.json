@@ -1,6 +1,6 @@
 {
   "name": "news",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "simple CRUD app to post to the News blog",
   "main": "server.js",
   "scripts": {
