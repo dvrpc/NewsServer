@@ -2,7 +2,7 @@
 const sequelize = require('sequelize')
 const debug = require('debug')('sql')
 const pkg = require('../package.json')
-require('dotenv').load()
+require('dotenv').config()
 
 const name = pkg.name
 const credentials = encodeURIComponent(process.env.CREDENTIALS)
