@@ -2,11 +2,11 @@
 const sequelize = require('sequelize')
 const debug = require('debug')('sql')
 const pkg = require('../package.json')
-require('dotenv').load()
+require('dotenv').config()
 
 const name = pkg.name
 const credentials = encodeURIComponent(process.env.CREDENTIALS)
-const connectionString = `postgres://${credentials}@10.1.1.194:5432/${name}`;
+const connectionString = `postgres://${credentials}@127.0.0.1:5432/${name}`;
 
 const db = module.exports = new sequelize(connectionString, {
     logging: debug,
@@ -16,7 +16,8 @@ const db = module.exports = new sequelize(connectionString, {
 // run our model definitions after creating the jawn
 require('./models.js')
 
-// sync the db
+// sync the db. force true for now to create/recreate w/dummy data 
+    //@TODO: remember to change to force=FALSE once this is up and running
 function sync(force=false) {
     return db.sync({force})
     .then(ok => console.log('synced models to db ', connectionString))
