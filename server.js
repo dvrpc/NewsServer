@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 // app.use(cors());
 
 // set up the general routing path
-app.use("/news", require("./api.js"));
+app.use("/api/news", require("./api.js"));
 
 app.listen(PORT, "0.0.0.0", () => console.log("listening on the port ", PORT));
 

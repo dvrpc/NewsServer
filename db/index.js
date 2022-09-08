@@ -1,12 +1,14 @@
 // DB Index
 const sequelize = require("sequelize");
 const debug = require("debug")("sql");
-const pkg = require("../package.json");
 require("dotenv").config();
 
-const name = pkg.name;
-const credentials = encodeURIComponent(process.env.CREDENTIALS);
-const connectionString = `postgres://${credentials}@127.0.0.1:5432/${name}`;
+const PG_USER = encodeURIComponent(process.env.PG_USER);
+const PG_PASS = encodeURIComponent(process.env.PG_PASS);
+const PG_HOST = process.env.PG_HOST;
+const PG_PORT = process.env.PG_PORT;
+const PG_DB = process.env.PG_DB;
+const connectionString = `postgres://${PG_USER}:${PG_PASS}@${PG_HOST}:${PG_PORT}/${PG_DB}`;
 
 const db = (module.exports = new sequelize(connectionString, {
   logging: debug,
@@ -21,7 +23,7 @@ require("./models.js");
 function sync(force = false) {
   return db
     .sync({ force })
-    .then((ok)) => console.log("synced models to db ", connectionString))
+    .then((_) => console.log("synced models to db ", connectionString))
     .catch((fail) => {
       console.log("db failed to sync because: ", fail);
     });
